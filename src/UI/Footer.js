@@ -30,7 +30,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="px-4 pt-12 mx-auto max-w-screen-[1443px] md:px-24 lg:px-8">
-        <div className="grid lg:grid-cols-2 lg:flex flex-col lg:gap-0 md:gap-0 gap-5">
+        <div className="lg:grid lg:grid-cols-2 flex flex-col lg:gap-0 md:gap-0 gap-5">
           <div className="flex flex-col justify-center items-center">
             <a
               href="/"
