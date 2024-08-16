@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Kavod } from '../Assets'
 import { Footer, Nav } from '../UI'
 
@@ -24,7 +25,7 @@ export default function Contact() {
     try {
       const apiLink = 'https://iamkavod-portfolio.vercel.app/api/send-mail';
       const response = await axios.post(apiLink, formData);
-      
+
       if (response.status === 200) {
         setStatus('Email sent successfully!');
       } else {
