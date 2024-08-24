@@ -2,9 +2,9 @@ on:
     push:
       branches:
         - main
-  name: 🚀 Deploy website on push
+name: 🚀 Deploy website on push
   
-  jobs:
+jobs:
     web-deploy:
       name: 🎉 Deploy
       runs-on: ubuntu-latest
@@ -23,7 +23,7 @@ on:
           npm run build
       
       - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.GIT_CPANEL_REACT_SERVER }}
           username: ${{ secrets.GIT_CPANEL_REACT_USER }}
