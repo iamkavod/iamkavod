@@ -5,38 +5,38 @@ import { Footer, Nav } from '../UI'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
-
-  const [status, setStatus] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    try {
-      const apiLink = 'https://iamkavod-portfolio.vercel.app/api/send-mail';
-      const response = await axios.post(apiLink, formData);
-
-      if (response.status === 200) {
-        setStatus('Email sent successfully!');
-      } else {
-        setStatus('Failed to send email.');
-      }
-    } catch (error) {
-      console.error('Error sending email:', error);
-      setStatus('Failed to send email.');
-    }
+    fetch("https://formspree.io/f/myzgpdeb", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          setSubmitted(true);
+        } else {
+          alert("There was an error submitting the form.");
+        }
+      })
+      .catch((error) => {
+        alert("There was an error submitting the form.");
+      });
   };
-
 
   return (
     <main>
@@ -64,52 +64,65 @@ export default function Contact() {
                 <h3 className="mb-4 font-semibold sm:mb-6 lg:text-[50px] text-xl text-white">
                   Let's Collaborate!
                 </h3>
-                <form onSubmit={handleSubmit}>
-                  <div className="mb-1 sm:mb-2">
-                    <input
-                      placeholder="Name"
-                      required
-                      type="text"
-                      className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="mb-1 sm:mb-2">
-                    <input
-                      placeholder="Email"
-                      required
-                      type="text"
-                      className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                    />
+                {!submitted ? (
+                  <form onSubmit={handleSubmit}>
                     <div className="mb-1 sm:mb-2">
-                      <textarea
-                        placeholder="Message"
+                      <input
+                        placeholder="Name"
                         required
                         type="text"
-                        className="flex-grow w-full h-40 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                        id="message"
-                        name="message"
-                        value={formData.message}
+                        className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                        id="name"
+                        name="name"
+                        value={formData.name}
                         onChange={handleChange}
                       />
                     </div>
-                  </div>
-                  <div className="mt-4 mb-2 sm:mb-4">
-                    <button
-                      type="submit"
-                      className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-primaryColor text-white"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </form>
+                    <div className="mb-1 sm:mb-2">
+                      <input
+                        placeholder="Email"
+                        required
+                        type="text"
+                        className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                      />
+                      <input
+                        placeholder="Subject"
+                        required
+                        type="text"
+                        className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                        id="subject"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                      />
+                      <div className="mb-1 sm:mb-2">
+                        <textarea
+                          placeholder="Message"
+                          required
+                          type="text"
+                          className="flex-grow w-full h-40 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                          id="message"
+                          name="message"
+                          value={formData.message}
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-4 mb-2 sm:mb-4">
+                      <button
+                        type="submit"
+                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-primaryColor text-white"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                ) : <p className='text-white'>Thank you for your message! We will get back to you soon.</p>}
+
               </div>
             </div>
           </div>
