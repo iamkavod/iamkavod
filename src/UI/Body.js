@@ -27,7 +27,7 @@ export default function Body() {
             </h5>
             <p className="text-base text-black lg:text-2xl text-lg flex flex-col gap-3 text-justify">
               <span>
-              I am Ubongabasi Joseph, a Full Stack Software Engineer with 2 years experience, I also have have 4 years experience in cryptocurrency trading and blockchain product management. I possess a deep understanding of technology and innovation, which allows me to drive growth.
+              I am Ubongabasi Joseph, a Full Stack Software Engineer with 2 years experience, I also have 4 years experience in cryptocurrency trading and blockchain product management. I possess a deep understanding of technology and innovation, which allows me to drive growth.
               </span>
 
               <span>
